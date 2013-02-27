@@ -15,7 +15,7 @@ Bone::Bone(int id, std::string name, Float3 direction, Float3 axis, float length
 	SetLength(length);
 }
 
-string get_file_contents(const char *filename)
+string Bone::get_file_contents(const char *filename)
 {
   ifstream in(filename, ios::in | ios::binary);
   if (in)
@@ -32,7 +32,7 @@ string get_file_contents(const char *filename)
 
 }
 
- void printDebug(string text){
+ void Bone::printDebug(string text){
 	OutputDebugString(text.c_str());
  }
 

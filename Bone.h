@@ -44,6 +44,8 @@ public:
 	GETSET(Float3, Direction);
 	GETSET(Float3, Axis);
 	GETSET(float, Length);
+	static std::string get_file_contents(const char *filename);
+	static void printDebug(std::string text);
 
 
 protected:

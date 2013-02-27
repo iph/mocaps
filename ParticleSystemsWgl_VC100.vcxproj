@@ -319,6 +319,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Keyframe.cpp" />
     <ClCompile Include="ParticleSystems.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Root.cpp" />
@@ -326,6 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bone.h" />
+    <ClInclude Include="Keyframe.h" />
     <ClInclude Include="ParticleSystems.h" />
     <ClInclude Include="Root.h" />
     <ClInclude Include="Skeleton.h" />

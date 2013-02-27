@@ -8,6 +8,7 @@
 
 #include "ParticleSystems.h"
 #include "Root.h"
+#include "Keyframe.h"
 
 WM5_WINDOW_APPLICATION(ParticleSystems);
 
@@ -104,6 +105,7 @@ void ParticleSystems::CreateScene ()
     mRenderer->SetOverrideWireState(mWireState);
 
 	mRoot = Bone::build_man_from_file(mRenderer);
+	Keyframe::build_from_file("02_01.amc");
     VertexFormat* vformat = VertexFormat::Create(2,
         VertexFormat::AU_POSITION, VertexFormat::AT_FLOAT3, 0,
         VertexFormat::AU_TEXCOORD, VertexFormat::AT_FLOAT2, 0);
