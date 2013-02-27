@@ -7,7 +7,6 @@
 // File Version: 5.0.0 (2010/01/01)
 
 #include "ParticleSystems.h"
-#include "BloodCellController.h"
 #include "Root.h"
 
 WM5_WINDOW_APPLICATION(ParticleSystems);
@@ -29,7 +28,7 @@ bool ParticleSystems::OnInitialize ()
     }
     // Set up the camera.
     mCamera->SetFrustum(60.0f, GetAspectRatio(), 1.0f, 1000.0f);
-    APoint camPosition(16.730f, 0.0f, 0.0f);
+    APoint camPosition(26.730f, 0.0f, 0.0f);
     AVector camDVector(-1.0f, 0.0f, 0.0f);
     AVector camUVector(0.0f, 0.0f, 1.0f);
     AVector camRVector = camDVector.Cross(camUVector);

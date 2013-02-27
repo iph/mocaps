@@ -319,14 +319,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BloodCellController.cpp" />
     <ClCompile Include="ParticleSystems.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Root.cpp" />
     <ClCompile Include="Skeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BloodCellController.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="ParticleSystems.h" />
     <ClInclude Include="Root.h" />

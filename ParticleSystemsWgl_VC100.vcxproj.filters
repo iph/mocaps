@@ -14,9 +14,6 @@
     <ClCompile Include="ParticleSystems.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BloodCellController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Bone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -29,9 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ParticleSystems.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BloodCellController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bone.h">
