@@ -88,7 +88,9 @@ bool ParticleSystems::OnKeyDown (unsigned char key, int x, int y)
     {
     case 'w':
     case 'W':
-        mWireState->Enabled = !mWireState->Enabled;
+		APoint cur = mRoot->LocalTransform.GetTranslate();
+		cur[0] += .3;
+		mRoot->LocalTransform.SetTranslate(cur);
         return true;
     }
 
@@ -101,7 +103,7 @@ void ParticleSystems::CreateScene ()
     mWireState = new0 WireState();
     mRenderer->SetOverrideWireState(mWireState);
 
-	Node * root = Bone::build_man_from_file(mRenderer);
+	mRoot = Bone::build_man_from_file(mRenderer);
     VertexFormat* vformat = VertexFormat::Create(2,
         VertexFormat::AU_POSITION, VertexFormat::AT_FLOAT3, 0,
         VertexFormat::AU_TEXCOORD, VertexFormat::AT_FLOAT2, 0);
@@ -127,6 +129,6 @@ void ParticleSystems::CreateScene ()
 		incr.makeRotation(crossproduct(Unit::Y, direction), 
 	**/
 
-	mScene->AttachChild(root);
+	mScene->AttachChild(mRoot);
 }
 //----------------------------------------------------------------------------

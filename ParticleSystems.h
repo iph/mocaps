@@ -29,6 +29,7 @@ public:
 protected:
     void CreateScene ();
 
+	Node * mRoot;
     NodePtr mScene;
     WireStatePtr mWireState;
     Culler mCuller;
