@@ -37,7 +37,7 @@ class Keyframe
   
 public:
 	static void build_from_file(string);
-	map<string, Float3> bone_rots;
+	map<string, HMatrix> bone_rots;
 	Float3 root_trans;
 protected:
 

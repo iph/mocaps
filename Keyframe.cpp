@@ -3,6 +3,8 @@
 #include "ParticleSystems.h"
 #include "Bone.h"
 #include "Keyframe.h"
+#include "Utils.h"
+
 using namespace std;
 using namespace Wm5;
 
@@ -17,8 +19,8 @@ bool isNumeric(char possible){
 	return false;
 }
 
-void parse_floats_from_line(Keyframe * frame, string line){
-	    string buf; // Have a buffer string
+void parse_floats_from_line(Keyframe * frame, string line, map<string, Bone *> & bone_map){
+    string buf; // Have a buffer string
     stringstream ss(line); // Insert the string into a stream
 
 	Float3 val;
@@ -28,7 +30,6 @@ void parse_floats_from_line(Keyframe * frame, string line){
         tokens.push_back(buf);
 	}
 	if(tokens[0] == "root"){
-		// TODO: CHANGE THIS
 		frame->root_trans[0] = atof(tokens[1].c_str());
 		frame->root_trans[1] = atof(tokens[2].c_str());
 		frame->root_trans[2] = atof(tokens[3].c_str());
@@ -37,16 +38,20 @@ void parse_floats_from_line(Keyframe * frame, string line){
 		val[2] = atof(tokens[6].c_str());
 	}
 	else{
+		int dof_iter = 0;
 		for(int i = 1; i < tokens.size(); i++){
-			val[i-1] = atof(tokens[i].c_str());
+			//dof_iter = check_dof(dof_iter);
+			//val[] = atof(tokens[i].c_str());
 		}
 	}
-	frame->bone_rots[tokens[0]] = val;
+
+
+	//frame->bone_rots[tokens[0]] = val;
 }
 
 void Keyframe::build_from_file(string file_name){
 	vector<Keyframe *> keyframes;
-	string full_contents = Bone::get_file_contents(file_name.c_str());	
+	string full_contents = Util::get_file_contents(file_name.c_str());	
 
 	regex parse_new_lines("(.*)\r\n");
 	smatch sm;
@@ -57,7 +62,6 @@ void Keyframe::build_from_file(string file_name){
 		string line = sm[1];
 
 		if(line[0] == '#' || line[0] == ':'){
-
 			// Continue
 		}
 		else if (isNumeric(line[0])){
@@ -65,12 +69,12 @@ void Keyframe::build_from_file(string file_name){
 			current_frame = new Keyframe();
 		}
 		else{
-			parse_floats_from_line(current_frame, line);
+			//parse_floats_from_line(current_frame, line);
 		}
 		line_content = sm.suffix().str();
 	}
 
-	Bone::printDebug("\n");
+	Util::printDebug("\n");
 	keyframes.erase(keyframes.begin(), keyframes.begin()+1);
 }
 

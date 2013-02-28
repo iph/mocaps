@@ -324,9 +324,11 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Root.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bone.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Keyframe.h" />
     <ClInclude Include="ParticleSystems.h" />
     <ClInclude Include="Root.h" />

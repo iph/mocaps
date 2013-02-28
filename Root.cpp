@@ -31,6 +31,7 @@ Root * Root::get_root_from_file(string contents){
 	}
 
 	int ori_location = 0;
+	//Bone bone = bones[i];
 	while(tokens[ori_location] != orient_str){
 		ori_location++;
 	}

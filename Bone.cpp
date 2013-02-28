@@ -4,6 +4,8 @@
 #include "Bone.h"
 #include "Root.h"
 #include "Skeleton.h"
+#include "Utils.h"
+
 using namespace std;
 using namespace Wm5;
 
@@ -13,33 +15,16 @@ Bone::Bone(int id, std::string name, Float3 direction, Float3 axis, float length
 	SetDirection(direction);
 	SetAxis(axis);
 	SetLength(length);
+	SetRx(false);
+	SetRy(false);
+	SetRz(false);
 }
 
-string Bone::get_file_contents(const char *filename)
-{
-  ifstream in(filename, ios::in | ios::binary);
-  if (in)
-  {
-    std::string contents;
-    in.seekg(0, ios::end);
-    contents.resize(in.tellg());
-    in.seekg(0, ios::beg);
-    in.read(&contents[0], contents.size());
-    in.close();
-    return(contents);
-  }
-  throw(errno);
-
-}
-
- void Bone::printDebug(string text){
-	OutputDebugString(text.c_str());
- }
 
  Node * Bone::build_man_from_file(Renderer * mRender){
 	string herp = "herp.txt";
 	const char * filename = herp.c_str();
-	string file_contents = get_file_contents(filename);
+	string file_contents = Util::get_file_contents(filename);
 
 	//This cryptic line is brought to you by: parsing bonedata code!
 	regex parse_data(":bonedata([^:]*)");
@@ -92,21 +77,30 @@ string Bone::get_file_contents(const char *filename)
 	}
  }
 
-
  Bone * Bone::build_node_from_file(string contents){
     string buf; // Have a buffer string
     stringstream ss(contents); // Insert the string into a stream
 
     vector<string> tokens; // Create vector to hold our words
+	vector<string> dof;
 
     while (ss >> buf){
         tokens.push_back(buf);
 	}
 	Float3 direction(atof(tokens[5].c_str()), atof(tokens[6].c_str()), atof(tokens[7].c_str()));
 	Float3 axis(atof(tokens[11].c_str()), atof(tokens[12].c_str()), atof(tokens[13].c_str()));
-	
+
 	Bone * got_milk = new Bone(atoi(tokens[1].c_str()), tokens[3], direction, axis, atof(tokens[9].c_str()));
+	for(int i = 16; i < 19 && i < tokens.size(); i++){
+		if(tokens[i] == "rx"){
+			got_milk->SetRx(true);
+		}
+		if(tokens[i] == "ry"){
+			got_milk->SetRy(true);
+		}
+		if(tokens[i] == "rz"){
+			got_milk->SetRz(true);
+		}
+	}
 	return got_milk;
-
-
  }

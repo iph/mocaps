@@ -9,7 +9,7 @@
 #include "ParticleSystems.h"
 #include "Root.h"
 #include "Keyframe.h"
-
+#include "Utils.h"
 WM5_WINDOW_APPLICATION(ParticleSystems);
 
 //----------------------------------------------------------------------------
@@ -106,26 +106,6 @@ void ParticleSystems::CreateScene ()
 
 	mRoot = Bone::build_man_from_file(mRenderer);
 	Keyframe::build_from_file("02_01.amc");
-    VertexFormat* vformat = VertexFormat::Create(2,
-        VertexFormat::AU_POSITION, VertexFormat::AT_FLOAT3, 0,
-        VertexFormat::AU_TEXCOORD, VertexFormat::AT_FLOAT2, 0);
-    int vstride = vformat->GetStride();
-	StandardMesh sm(vformat);
-
-
-
-	std::string baseName = Environment::GetPathR("Flower.wmtf");
-    Texture2D* baseTexture = Texture2D::LoadWMTF(baseName);
-	
-    Texture2DEffect* effect = new0 Texture2DEffect(Shader::SF_LINEAR);
-	TriMesh * cyl = sm.Cylinder(10, 10, .10f, 1.0f, false);
-	HMatrix rot, incr;
-	Float3 nope(1.0, 0.0, 0.0);
-	AVector laaa(nope);
-	cyl->LocalTransform.SetScale(APoint(1.0f, 1.0f, 7.0f));
-	rot = cyl->LocalTransform.GetRotate();
-	incr.MakeRotation(AVector::UNIT_X, 90.0 * Mathf::DEG_TO_RAD);
-	cyl->LocalTransform.SetRotate(incr*rot);
 	/**
 		Do the rotation of the matrix using 
 		incr.makeRotation(crossproduct(Unit::Y, direction), 

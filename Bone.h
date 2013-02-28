@@ -40,12 +40,13 @@ public:
 	static void build_bone_from_file(std::string contents, std::map<std::string, Bone *> & mapper);
 	static Bone * build_node_from_file(std::string contents);
 	GETSET(int, Id);
+	GETSET(bool, Rx);
+	GETSET(bool, Ry);
+	GETSET(bool, Rz);
 	GETSET(std::string, Name);
 	GETSET(Float3, Direction);
 	GETSET(Float3, Axis);
 	GETSET(float, Length);
-	static std::string get_file_contents(const char *filename);
-	static void printDebug(std::string text);
 
 
 protected:
