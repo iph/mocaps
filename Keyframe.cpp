@@ -19,11 +19,25 @@ bool isNumeric(char possible){
 	return false;
 }
 
+int iter_dof(int old_dof, Bone * bone){
+	if( old_dof <= 0 && bone->GetRx() ){
+		return 0;	
+	}
+	else if( old_dof <= 1 && bone->GetRy() ){
+		return 1;
+	}
+	else if (old_dof <= 2 && bone->GetRz() ){
+		return 2;
+	}
+
+	return -1;
+}
+
 void parse_floats_from_line(Keyframe * frame, string line, map<string, Bone *> & bone_map){
     string buf; // Have a buffer string
     stringstream ss(line); // Insert the string into a stream
 
-	Float3 val;
+	Float3 val (0.0, 0.0, 0.0);
     vector<string> tokens; // Create vector to hold our words
 
     while (ss >> buf){
@@ -33,24 +47,44 @@ void parse_floats_from_line(Keyframe * frame, string line, map<string, Bone *> &
 		frame->root_trans[0] = atof(tokens[1].c_str());
 		frame->root_trans[1] = atof(tokens[2].c_str());
 		frame->root_trans[2] = atof(tokens[3].c_str());
-		val[0] = atof(tokens[4].c_str());
-		val[1] = atof(tokens[5].c_str());
-		val[2] = atof(tokens[6].c_str());
+		val[0] = atof(tokens[4].c_str()) * Mathf::DEG_TO_RAD;
+		val[1] = atof(tokens[5].c_str()) * Mathf::DEG_TO_RAD;
+		val[2] = atof(tokens[6].c_str()) * Mathf::DEG_TO_RAD;
 	}
 	else{
 		int dof_iter = 0;
 		for(int i = 1; i < tokens.size(); i++){
-			//dof_iter = check_dof(dof_iter);
-			//val[] = atof(tokens[i].c_str());
+			dof_iter = iter_dof(dof_iter, bone_map[tokens[0]]);
+			val[dof_iter] = atof(tokens[i].c_str()) * Mathf::DEG_TO_RAD;
+			dof_iter++;
 		}
 	}
-
-
-	//frame->bone_rots[tokens[0]] = val;
+	HMatrix cur = HMatrix::IDENTITY;
+	if(val[0] != 0.00){
+		cur = Util::rotation_x(val[0]);
+	}
+	if(val[1] != 0.00){
+		if( cur == HMatrix::IDENTITY){
+			cur = Util::rotation_y(val[1]);
+		}
+		else{
+			cur = cur * Util::rotation_y(val[1]);
+		}
+	}
+	if(val[2] != 0.00){
+		if( cur == HMatrix::IDENTITY){
+			cur = Util::rotation_z(val[2]);
+		}
+		else{
+			cur = cur * Util::rotation_z(val[2]);
+		}
+	}
+	frame->bone_rots[tokens[0]] = cur;
 }
 
-void Keyframe::build_from_file(string file_name){
+vector<Keyframe *> Keyframe::build_from_file(string file_name, map<string, Bone *> & bone_map){
 	vector<Keyframe *> keyframes;
+
 	string full_contents = Util::get_file_contents(file_name.c_str());	
 
 	regex parse_new_lines("(.*)\r\n");
@@ -69,12 +103,13 @@ void Keyframe::build_from_file(string file_name){
 			current_frame = new Keyframe();
 		}
 		else{
-			//parse_floats_from_line(current_frame, line);
+			parse_floats_from_line(current_frame, line, bone_map);
 		}
 		line_content = sm.suffix().str();
 	}
 
 	Util::printDebug("\n");
 	keyframes.erase(keyframes.begin(), keyframes.begin()+1);
+	return keyframes;
 }
 

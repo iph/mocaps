@@ -11,6 +11,8 @@
 
 #include "Wm5WindowApplication3.h"
 #include "Bone.h"
+#include "Keyframe.h"
+#include <string>
 using namespace Wm5;
 
 class ParticleSystems : public WindowApplication3
@@ -25,11 +27,19 @@ public:
     virtual void OnTerminate ();
     virtual void OnIdle ();
     virtual bool OnKeyDown (unsigned char key, int x, int y);
+	Node * build_man_from_file(Renderer *, std::map<std::string, Bone *> &,  std::map<std::string, Node *> & );
+	void apply_keyframe();
+
 
 protected:
     void CreateScene ();
-
 	Node * mRoot;
+	std::map<std::string, Bone *> bone_map;
+	std::map<std::string, Node *> wm_map;
+
+	bool it_on;
+	std::vector<Keyframe *> keyframes;
+	int frame;
     NodePtr mScene;
     WireStatePtr mWireState;
     Culler mCuller;

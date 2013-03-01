@@ -92,5 +92,4 @@ void Skeleton::makeSkeleton(string file_contents, Root * rt, map<string, Bone *>
 		}
 		line_content = sm.suffix().str();
 	}
-
 }

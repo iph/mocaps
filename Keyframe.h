@@ -11,6 +11,7 @@
 #include "Wm5ParticleController.h"
 #include <iostream>
 #include <string>
+#include <vector>
 #include <sstream>
 #include <map>
 
@@ -31,12 +32,12 @@ public: \
 using namespace std;
 namespace Wm5
 {
-
+class Node;
 class Keyframe
 {
   
 public:
-	static void build_from_file(string);
+	static vector<Keyframe *> build_from_file(string, std::map<std::string, Bone *> &);
 	map<string, HMatrix> bone_rots;
 	Float3 root_trans;
 protected:

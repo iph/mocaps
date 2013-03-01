@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <regex>
-#include "ParticleSystems.h"
 #include "Bone.h"
+#include "ParticleSystems.h"
 #include "Root.h"
 #include "Skeleton.h"
 #include "Utils.h"
@@ -20,38 +20,6 @@ Bone::Bone(int id, std::string name, Float3 direction, Float3 axis, float length
 	SetRz(false);
 }
 
-
- Node * Bone::build_man_from_file(Renderer * mRender){
-	string herp = "herp.txt";
-	const char * filename = herp.c_str();
-	string file_contents = Util::get_file_contents(filename);
-
-	//This cryptic line is brought to you by: parsing bonedata code!
-	regex parse_data(":bonedata([^:]*)");
-	regex parse_root(":root([^:]*)");
-
-	smatch sm;    
-	// bone data that will be needed for the heirarchy.
-	map<string, Bone *>  bone_map;
-	map<string, Node *>  wm_map;
-	
-	//Read in the bone data information
-	string temp_file_contents (file_contents);
-	regex_search(temp_file_contents, sm, parse_data);
-	build_bone_from_file(sm[1], bone_map);			
-
-	//Pull in the root information.
-
-	string temp_file_contents2 (file_contents);
-	regex_search(temp_file_contents2, sm, parse_root);
-	Root * root = Root::get_root_from_file(sm[1]);
-
-	//Read in the hierarchical data.
-	string temp_file_contents3 (file_contents);
-	Skeleton::makeSkeleton(temp_file_contents3, root, bone_map, wm_map, mRender);
-	return wm_map["root"];
-
- }
 
  /**
  * String must be in the form of:

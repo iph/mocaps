@@ -8,9 +8,10 @@
 
 #ifndef BONE_H
 #define BONE_H
-#include "Wm5ParticleController.h"
 #include <iostream>
 #include <sstream>
+#include <map>
+#include "Wm5Application.h"
 
 ///////////////////MAKE LIFE EASIER!!!//////////////////////////
 #define GETSET(type, var) \
@@ -29,14 +30,14 @@ public: \
 
 namespace Wm5
 {
-
+class Renderer;
+class Node;
 class Root;
 class Bone
 {
   
 public:
 	Bone::Bone(int id, std::string name, Float3 direction, Float3 axis, float length);	
-	static Node * build_man_from_file(Renderer * render);
 	static void build_bone_from_file(std::string contents, std::map<std::string, Bone *> & mapper);
 	static Bone * build_node_from_file(std::string contents);
 	GETSET(int, Id);
